@@ -1,5 +1,5 @@
 name: notablonjo
-description: A new Flutter project.
+description: Aplikasi penulis nota pembelian yang langsung bisa di share ke pembeli lewat sosmed.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -34,6 +34,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  image_path: "assets/images/421282-PDQDIT-426.jpg"
+  android: "launcher_icon"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
