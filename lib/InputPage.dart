@@ -16,6 +16,8 @@ class _InputPageState extends State<InputPage> {
   TextEditingController _qty = TextEditingController();
   TextEditingController _harga = TextEditingController();
   FocusNode _firstFocusField = FocusNode();
+  FocusNode _secondFocusField = FocusNode();
+  FocusNode _thirdFocusField = FocusNode();
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   int total = 0;
@@ -27,9 +29,9 @@ class _InputPageState extends State<InputPage> {
     if (_formKey.currentState.validate()) {
       // collect all input field
       String namaBrg = _namaBarang.text;
-      int formQty = int.tryParse(_qty.text);
+      double formQty = double.tryParse(_qty.text);
       int formHarga = int.tryParse(_harga.text);
-      int kaliHarga = formQty * formHarga;
+      double kaliHarga = formQty * formHarga;
       // masukan ke provider
       Provider.of<CalcProvider>(context, listen: false).addCalc(CalcModel(
         qty: formQty,
@@ -108,7 +110,7 @@ class _InputPageState extends State<InputPage> {
                             focusNode: _firstFocusField,
                             autofocus: true,
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                            onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_secondFocusField),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -132,7 +134,8 @@ class _InputPageState extends State<InputPage> {
                           elevation: 1,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
-                            maxLength: 2,
+                            focusNode: _secondFocusField,
+                            maxLength: 4,
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (val) {
@@ -141,7 +144,7 @@ class _InputPageState extends State<InputPage> {
                                 this._qty.text = '1';
                               }
                               // jumpt to next input field
-                              FocusScope.of(context).nextFocus();
+                              FocusScope.of(context).requestFocus(_thirdFocusField);
                             },
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -167,6 +170,7 @@ class _InputPageState extends State<InputPage> {
                           elevation: 1,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
+                            focusNode: _thirdFocusField,
                             validator: (val) => val.isEmpty ? 'Tidak boleh kosong' : null,
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (val) {
@@ -245,7 +249,8 @@ class _InputPageState extends State<InputPage> {
                                       Text('${index + 1}. '),
                                       Text(calcLoop.namaBarang),
                                       SizedBox(width: 15),
-                                      Text('${calcLoop.qty}x ${calcLoop.hargaSatuan}'),
+                                      Text(
+                                          '${calcLoop.qty.toString().replaceAll(RegExp(r'.0'), '')}x ${calcLoop.hargaSatuan}'),
                                       Spacer(),
                                       Text('${formatCurrency.format(calcLoop.kaliHarga)}')
                                     ],

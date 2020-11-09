@@ -27,9 +27,9 @@ class CalcProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  int _total = 0;
-  int get total => _total;
-  set setTotal(int val) {
+  double _total = 0;
+  double get total => _total;
+  set setTotal(double val) {
     _total += val;
     notifyListeners();
   }

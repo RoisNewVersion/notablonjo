@@ -47,13 +47,15 @@ class RootPage extends StatelessWidget {
           },
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.grey),
-                activeIcon: Icon(Icons.home, color: Colors.blue),
-                title: Text('Utama')),
+              icon: Icon(Icons.home, color: Colors.grey),
+              activeIcon: Icon(Icons.home, color: Colors.blue),
+              label: 'Utama',
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Colors.grey),
-                activeIcon: Icon(Icons.person, color: Colors.blue),
-                title: Text('Info')),
+              icon: Icon(Icons.person, color: Colors.grey),
+              activeIcon: Icon(Icons.person, color: Colors.blue),
+              label: 'Info',
+            ),
           ],
         ),
       ),
